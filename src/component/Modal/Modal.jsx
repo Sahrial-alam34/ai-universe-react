@@ -1,14 +1,50 @@
 import React from 'react';
 
 const Modal = (props) => {
-    console.log(props.singleData)
+    console.log(props.singleData);
+    const { image_link, description, integrations, features } = props?.singleData;
+    // {
+    //     '0': {}
+    //     '1': {}
+    //     '2': {}
+    // }
+    // [{},{},{}]
+    // console.log(features);
+    // console.log(Object.keys(features || {}));
+    // console.log(Object.values(features || {}));
+
     return (
         <div>
             <input type="checkbox" id="my-modal-5" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box w-11/12 max-w-5xl">
-                    <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
-                    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+                    <div className="card lg:card-side bg-base-100 ">
+
+                        <div className="card-body border-2 border-error mr-2">
+                            <h2 className="card-title">{description ? description : 'not found'}</h2>
+                            <div className='flex justify-between'>
+                                <div>
+                                    <h1 className='text-xl font-bold'>Features</h1>
+                                    {
+                                        Object.values(features || {}) &&
+                                        Object.values(features || {}).map((value => <p>{value.feature_name?value.feature_name:'not found'}</p>))
+                                    }
+                                </div>
+                                <div>
+                                    <h1 className='text-xl font-bold'>Integrations</h1>
+                                    {
+                                        integrations &&
+                                        integrations.map((int=>(
+                                            <p>{int?int:'not found'}</p>
+                                        )))
+                                    }
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <figure><img className='w-full h-full' src={image_link && image_link[0]} alt="Album" /></figure>
+                    </div>
                     <div className="modal-action">
                         <label htmlFor="my-modal-5" className="btn">Yay!</label>
                     </div>
